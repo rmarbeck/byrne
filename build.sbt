@@ -14,7 +14,8 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   javaJdbc,
   cache,
-  "fr.watchnext" % "utils_2.11" % "1.01-SNAPSHOT",
+  "fr.watchnext" % "utils_2.11" % "1.01",
+  "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
   javaWs,
   evolutions
 )
