@@ -1,9 +1,15 @@
-
+global.code.lang.head=fr
 
 presetcustomer.page.title=Clients
+presetcustomer.html.title=Clients
+presetcustomer.page.nothing.to.display=Aucun client à afficher
 presetcustomer.page.short.name=Nom
 presetcustomer.page.name.and.address=Adresse
 presetcustomer.page.remarks=Remarques
+
+invoice.page.nothing.to.display=Aucune facture à afficher
+invoice.page.title=Factures
+invoice.html.title=Factures
 
 admin.presetcustomer.form.shortname.label.name=Nom court
 admin.presetcustomer.form.shortname.placeholder.name=Girard Perregeaux
@@ -11,6 +17,12 @@ admin.presetcustomer.form.nameandaddress.label.name=Nom et adresse
 admin.presetcustomer.form.nameandaddress.placeholder.name=Nom\nAdresse\nVille
 admin.presetcustomer.form.remarks.label.name=Remarques
 admin.presetcustomer.form.remarks.placeholder.name=
+admin.presetcustomer.action.cancel=Annuler
+admin.presetcustomer.action.show=Visualiser
+admin.presetcustomer.action.save=Enregistrer
+admin.presetcustomer.action.edit=Enregistrer
+admin.presetcustomer.action.delete=Supprimer
+presetcustomer.form.title=Gestion des clients
 
 
 admin.invoice.form.uniqueserialkey.label.name=Numéro de facture
@@ -41,12 +53,24 @@ admin.invoice.form.remarks.label.name=Remarques/Mentions légales
 admin.invoice.form.remarks.placeholder.name=
 admin.invoice.form.shippingcost.label.name=Frais de livraison
 admin.invoice.form.shippingcost.placeholder.name=
+invoice.form.title=Gestion des factures
+admin.invoice.action.cancel=Annuler
+admin.invoice.action.show=Visualiser
+admin.invoice.action.save=Enregistrer
+admin.invoice.action.edit=Enregistrer
+admin.invoice.action.delete=Supprimer
 
 admin.invoice.form.items0.name.label.name=Ligne
 admin.invoice.form.items0.name.placeholder.name=Ligne
 admin.invoice.form.items0.cost.label.name=Coût unitaire
 admin.invoice.form.items0.cost.placeholder.name=Coût unitaire
 admin.invoice.form.items0.novat.label.name=Sans TVA
+
+invoice.page.invoice.date=Date de facture
+invoice.page.unique.serial.key=Numéro de facture
+invoice.page.customer=Client
+invoice.page.customer.type.of.invoice=Type de facture
+
 
 navbar.link.home=Byrne
 navbar.link.text.invoices=Factures
@@ -57,3 +81,14 @@ navbar.link.text.preset.collector.avv=Nouvelle facture Collector Square AVV
 navbar.link.text.preset.hometime=Nouvelle facture Hometime
 navbar.link.text.empty=Nouvelle facture vide
 navbar.link.text.invoices=Lister les factures
+
+
+admin.page.text.display.range=Afficher '  
+admin.page.text.display.range.to= à '
+admin.page.text.display.range.out.of= sur '
+admin.action.filter.by=Filtrer par '
+admin.action.label.add.new.default=Ajouter
+
+admin.page.text.display.previous=&larr; Précédent
+admin.page.text.display.previuous=&larr; Précédent
+admin.page.text.display.next=Suivant &rarr;
