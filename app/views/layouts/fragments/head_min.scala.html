@@ -1,0 +1,27 @@
+@(key: String = "global.home", title_option: String = "", description_option: String = "", keywords_option: String = "")
+
+@title = {
+	@if(title_option.isEmpty()) {
+		@Messages(key+".html.title")
+	} else {
+		@Messages(key+".html.title", title_option)
+	}
+}
+
+@description = {
+	@if(description_option.isEmpty()) {
+		@Messages(key+".html.description")
+	} else {
+		@Messages(key+".html.description", description_option)
+	}
+}
+
+@keywords = {
+	@if(keywords_option.isEmpty()) {
+		@Messages(key+".html.keywords")
+	} else {
+		@Messages(key+".html.keywords", keywords_option)
+	}
+}
+
+@layouts.fragments.head_common(title.toString.trim, description.toString.trim, keywords.toString.trim)

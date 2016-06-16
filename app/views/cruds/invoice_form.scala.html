@@ -1,0 +1,162 @@
+@(thisInstance: Form[models.Invoice], isItNew: Boolean)
+
+@import _root_.fr.watchnext.utils.views.FormDisplay
+
+@import java.lang.String; val key="invoice"
+@import java.lang.String; val modelName="Invoice"
+
+@end_scripts = {
+<script>
+    $(document).ready(function(){
+    
+    	function addLine(copiedPosition, copyPosition) {
+    		$("#remove-line").prop('disabled', false);
+    		
+        	$('.items_line_'+copiedPosition).clone().attr('class', 'row items-row items_line_'+ copyPosition).insertAfter('.items_line_'+ copiedPosition);
+        	$('.items_line_'+copyPosition).find("[id*='items_']").each(function() {
+				$(this).attr("id", $(this).attr("id").replace(copiedPosition,copyPosition));
+				$(this).attr("name", $(this).attr("name").replace(copiedPosition,copyPosition));
+            });
+            $('.items_line_'+copyPosition).find("[for*='items_']").each(function() {
+            	$(this).attr("for", $(this).attr("for").replace(copiedPosition,copyPosition));
+            });
+    	}
+    
+    	function addLineWithValue(index, value) {
+   			var copiedPosition = indexPosition;
+        	var copyPosition = ++indexPosition;
+        	addLine(copiedPosition, copyPosition);
+            $('.items_line_'+copyPosition).find("[id$='_name']").each(function() {
+				$(this).val(items_names[index]);
+            });
+            $('.items_line_'+copyPosition).find("[id$='_cost']").each(function() {
+				$(this).val(items_costs[index]);
+            });
+            $('.items_line_'+copyPosition).find("[id$='_noVat']").each(function() {
+				$(this).val(items_novats[index]);
+            });
+		}
+		
+		function computePartsCost() {
+   			var price = 0;
+        	$("[id$='_cost']").each(function() {
+				price+=parseInt($(this).val());
+            });
+            return price*.4	;
+		}
+
+    
+    	@if(!thisInstance.hasErrors() && thisInstance.get().items != null) {
+	    	var items_names = [@Html((for(item <- thisInstance.get().items) yield "\""+item.name+"\"").mkString(", "))];
+	    	var items_costs = [@Html((for(item <- thisInstance.get().items) yield "\""+item.cost+"\"").mkString(", "))];
+	    	var items_novats = [@Html((for(item <- thisInstance.get().items) yield "\""+item.noVat+"\"").mkString(", "))];
+	    	items_names.splice(0, 1);
+	    	items_costs.splice(0, 1);
+	    	items_novats.splice(0, 1);
+    	} else {
+    		@thisInstance.data()
+	    	var items_names = [];
+	    	var items_costs = [];
+	    	var items_novats = [];
+    	}
+    	
+    	$( "#items_0_name, #items_0_cost, #items_0_noVat" ).parents("div.form-group").parent().wrapAll("<div class='row items-row items_line_0'></div>");
+    	$( ".items_line_0").after("<button id='remove-line' class='btn btn-danger col-xs-2'>&nbsp;Retirer</button>")
+    	$( ".items_line_0").after("<button id='add-line' class='btn btn-primary col-xs-offset-4 col-xs-2'>&nbsp;Ajouter</button>")
+    	$( "#add-line, #remove-line" ).wrapAll("<div class='row items-buttons-row text-center'></div>");
+    	
+    	$('.items_line_0').find("[for$='_name'], [for$='_cost']").each(function() {
+            	$(this).attr("class", "hidden");
+            });
+        
+        $('.items_line_0').find("[for$='_noVat']").each(function() {
+            	$(this).attr("class", "col-xs-6");
+            });
+        
+        $('.items_line_0').find("[id*='items_']").unwrap();
+        
+        $('.items_line_0').find("[id$='_name']").each(function() {
+        		$(this).parent().attr("class", "col-xs-offset-3 col-xs-3");
+            });
+        $('.items_line_0').find("[id$='_cost']").each(function() {
+        		$(this).parent().attr("class", "col-xs-3");
+            });
+        $('.items_line_0').find("[id$='_noVat']").each(function() {
+        		$(this).parent().attr("class", "col-xs-3");
+            });
+    	
+    	var indexPosition = 0;
+    	$.each( items_names, function( index, value ){
+    		addLineWithValue(index, value);
+		});
+		
+		$( "#partsCost" ).attr( "placeholder", computePartsCost());
+    	
+        $('#add-line').click(function(event) {
+        	event.preventDefault();
+        	var copiedPosition = indexPosition;
+        	var copyPosition = ++indexPosition;
+        	addLine(copiedPosition, copyPosition);
+        	$('.items_line_'+copyPosition).find("[id$='_name']").each(function() {
+				$(this).val("");
+            });
+            $('.items_line_'+copyPosition).find("[id$='_cost']").each(function() {
+				$(this).val("");
+            });
+            $('.items_line_'+copyPosition).find("[id$='_noVat']").each(function() {
+				$(this).val("");
+            });
+        	
+         });
+         
+        $('#remove-line').click(function(event) {
+        	event.preventDefault();
+			$('.items_line_'+indexPosition).remove();
+			--indexPosition;
+			if (indexPosition == 0) {
+				$("#remove-line").prop('disabled', true);
+			} 
+         });
+         
+        $( "#customer_data" ).change(function() {
+		  $( "#customer" ).val( $( "#customer_data option:selected" ).val() );
+		});
+		
+		$("body").on("change", "input[id$='_cost']", function() {
+    		$( "#partsCost" ).attr( "placeholder", computePartsCost());
+		});
+         
+    })  
+</script>
+} 
+
+
+@layouts.main(key, key+"-form", Html(""), end_scripts) {
+	@defining(new FormDisplay(thisInstance, modelName, key+".form")) { formDisplay =>
+		@{ 
+		   formDisplay.addFormField("uniqueSerialKey", false, "input");
+		   formDisplay.addFormField("invoiceDate", false, "input", 'type -> "date");
+		   formDisplay.addFormFieldForSelect("customer.data", false, models.PresetCustomer.getDataSelector);
+		   formDisplay.addFormField("customer", false, "textarea");
+		   formDisplay.addFormField("customerTypeOfInvoice", false, "input");
+		   formDisplay.addFormField("brands", false, "input");
+		   formDisplay.addFormField("movements", false, "input");
+		   formDisplay.addFormField("serials", false, "input");
+		   formDisplay.addFormField("cases", false, "input");
+		   formDisplay.addFormField("straps", false, "input");
+		   formDisplay.addFormField("dials", false, "input");
+		   
+		   formDisplay.addFormField("items[0].name", false, "input")
+		   formDisplay.addFormField("items[0].cost", false, "input", 'type -> "number", 'min -> "0", 'step -> "0.01")
+		   formDisplay.addFormField("items[0].noVat", false, "checkbox")
+		   
+		   formDisplay.addFormField("checkItems", false, "checkbox")
+		   formDisplay.addFormField("partsCost", false, "input", 'type -> "number", 'min -> "0", 'step -> "0.01")
+		   formDisplay.addFormField("shippingCost", false, "input", 'type -> "number", 'min -> "0", 'step -> "0.01")
+		   formDisplay.addFormField("remarks", false, "textarea");
+		}
+	
+	@fr.watchnext.utils.templates.form_with_default_links(formDisplay, isItNew)
+	}
+
+}

@@ -1,0 +1,22 @@
+@(currentPage: com.avaje.ebean.PagedList[models.PresetCustomer], currentSortBy: String, currentOrder: String, currentFilter: String, currentSize: Integer)
+@import tags._
+@import fr.watchnext.utils.tags._
+@import _root_.fr.watchnext.utils.views.PageDisplay
+
+@import java.lang.String; val key="presetcustomer"
+@import java.lang.String; val controllerName="PresetCustomers"
+@import java.lang.String; val defaultSorting="shortName"
+
+
+@layouts.main(key, key+"_page") {
+
+@defining(new PageDisplay(currentPage, defaultSorting, key+".page")) { pageDisplay =>
+	@{ pageDisplay.addTableField("shortName", "short.name", "getShortName", false);
+		pageDisplay.addTableField("nameAndAddress", "name.and.address", "getNameAndAddress", false);
+		pageDisplay.addTableField("remarks", "remarks", "getRemarks", false)
+	}
+	
+	@fr.watchnext.utils.templates.page_with_default_links_and_action(pageDisplay, controllerName, null, currentSortBy, currentOrder, currentFilter, currentSize, true, null)
+}
+}
+

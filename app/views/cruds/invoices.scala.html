@@ -1,0 +1,23 @@
+@(currentPage: com.avaje.ebean.PagedList[models.Invoice], currentSortBy: String, currentOrder: String, currentFilter: String, currentSize: Integer)
+@import tags._
+@import fr.watchnext.utils.tags._
+@import _root_.fr.watchnext.utils.views.PageDisplay
+
+@import java.lang.String; val key="invoice"
+@import java.lang.String; val controllerName="Invoices"
+@import java.lang.String; val defaultSorting="invoiceDate"
+
+
+@layouts.main(key, key+"-page") {
+
+@defining(new PageDisplay(currentPage, defaultSorting, key+".page")) { pageDisplay =>
+	@{  pageDisplay.addTableField("invoiceDate", "invoice.date", "getInvoiceDate", false, "date short");
+		pageDisplay.addTableField("uniqueSerialKey", "unique.serial.key", "getUniqueSerialKey", false);
+		pageDisplay.addTableField("customer", "customer", "getCustomer", false)
+		pageDisplay.addTableField("customerTypeOfInvoice", "customer.type.of.invoice", "getCustomerTypeOfInvoice", false)
+	}
+	
+	@fr.watchnext.utils.templates.page_with_default_links_and_action(pageDisplay, controllerName, null, currentSortBy, currentOrder, currentFilter, currentSize, true, null)
+}
+}
+

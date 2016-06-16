@@ -1,0 +1,136 @@
+@import "_common.less";
+
+#invoice-display {
+	font-size: 11px;
+	
+	h1, h2, h3 {
+		text-transform: uppercase;
+		margin-bottom: 1em;
+	}
+	
+	h1 {
+		font-size: 80px;
+	}
+	
+	h2 {
+		font-size: 16px;
+		font-weight: bold;
+	}
+	
+	h3 {
+		font-size: 10px;
+	}
+	
+	.brand-row {
+		margin-top: 20px;
+		margin-bottom: 40px;
+	}
+	
+	.front-row {
+		font-size: 13px;
+	
+		span.invoice-location {
+			margin-left: 3em;
+		}
+	
+		span.invoice-customer {
+			white-space: pre;
+			text-transform: uppercase;
+		}
+	}
+	
+	.description-row {
+		table {
+		    border-collapse: collapse;
+		}
+		
+		table, th, td {
+		    border: 1px solid black;
+		  	padding: 1px 2px;
+		}
+		
+		.col-label {
+			text-transform: uppercase;
+			font-weight: bold;
+		}
+	}
+	
+	.items-row {
+		table{
+			border: 3px double black;
+			border-collapse: separate !important;
+		}
+		
+		td {
+			border: none;
+		}
+		
+		.col-value {
+			text-align: right;
+		}
+	}
+	
+	.prices-row {
+		table, th, td {
+		    border: none;
+		    padding: 1px;
+		}
+		
+		.col-value {
+			text-align: right;
+		}
+	}
+	
+	.total-row, .ht-row, .vat-row {
+		table, th, td {
+		    border: none;
+		    padding: 1px;
+		}
+		
+		.col-label {
+			text-transform: uppercase;
+			font-weight: bold;
+		}
+		
+		.col-value {
+			text-align: right;
+		}
+	}
+	
+	.total-row, .ht-row {
+		.col-value {
+			border: 1px solid black;
+			font-weight: bold;
+		}
+	}
+	
+	.footer-row {
+		text-align: center;
+		width: 100%;
+		position:absolute;
+		top: 835px;
+	}
+	
+	.invoice-remarks, .invoice-type {
+		text-align: center;
+		font-size: 15px;
+	}
+	
+	.invoice-remarks {
+	 	margin-top: 20px;
+	}
+}
+
+#invoice-form {
+	.items-row {
+		margin-bottom: 20px;
+	}
+
+	.items-buttons-row {
+		margin: 30px;
+	}
+	
+	.items-buttons-row #remove-line {
+		margin-left: 20px;
+	}
+}

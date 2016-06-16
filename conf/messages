@@ -1,0 +1,59 @@
+
+
+presetcustomer.page.title=Clients
+presetcustomer.page.short.name=Nom
+presetcustomer.page.name.and.address=Adresse
+presetcustomer.page.remarks=Remarques
+
+admin.presetcustomer.form.shortname.label.name=Nom court
+admin.presetcustomer.form.shortname.placeholder.name=Girard Perregeaux
+admin.presetcustomer.form.nameandaddress.label.name=Nom et adresse
+admin.presetcustomer.form.nameandaddress.placeholder.name=Nom\nAdresse\nVille
+admin.presetcustomer.form.remarks.label.name=Remarques
+admin.presetcustomer.form.remarks.placeholder.name=
+
+
+admin.invoice.form.uniqueserialkey.label.name=Numéro de facture
+admin.invoice.form.uniqueserialkey.placeholder.name=20XX/YY
+admin.invoice.form.invoicedate.label.name=Date de facture
+admin.invoice.form.customer.data.label.name=Clients fréquents
+admin.invoice.form.customer.data.default.name=Sélectionner un client
+admin.invoice.form.customer.label.name=Client
+admin.invoice.form.customer.placeholder.name=Nom\nAdresse\nVille
+admin.invoice.form.customertypeofinvoice.label.name=Type de facture
+admin.invoice.form.customertypeofinvoice.placeholder.name=SAV/AVV
+admin.invoice.form.brands.label.name=Marques
+admin.invoice.form.brands.placeholder.name=
+admin.invoice.form.movements.label.name=Calibres
+admin.invoice.form.movements.placeholder.name=
+admin.invoice.form.serials.label.name=Bracelets
+admin.invoice.form.serials.placeholder.name=
+admin.invoice.form.cases.label.name=Boites
+admin.invoice.form.cases.placeholder.name=
+admin.invoice.form.straps.label.name=Bracelets
+admin.invoice.form.straps.placeholder.name=
+admin.invoice.form.dials.label.name=Cadrans
+admin.invoice.form.dials.placeholder.name=
+admin.invoice.form.checkitems.label.name=Vérifier la duplication
+admin.invoice.form.partscost.label.name=Coût HT pièces détachées
+admin.invoice.form.partscost.placeholder.name=
+admin.invoice.form.remarks.label.name=Remarques/Mentions légales
+admin.invoice.form.remarks.placeholder.name=
+admin.invoice.form.shippingcost.label.name=Frais de livraison
+admin.invoice.form.shippingcost.placeholder.name=
+
+admin.invoice.form.items0.name.label.name=Ligne
+admin.invoice.form.items0.name.placeholder.name=Ligne
+admin.invoice.form.items0.cost.label.name=Coût unitaire
+admin.invoice.form.items0.cost.placeholder.name=Coût unitaire
+admin.invoice.form.items0.novat.label.name=Sans TVA
+
+navbar.link.home=Byrne
+navbar.link.text.invoices=Factures
+navbar.link.customer=Clients
+navbar.link.text.logout=Déconnecter
+navbar.link.text.preset.collector.sav=Nouvelle facture Collector Square SAV
+navbar.link.text.preset.collector.avv=Nouvelle facture Collector Square AVV
+navbar.link.text.preset.hometime=Nouvelle facture Hometime
+navbar.link.text.empty=Nouvelle facture vide
+navbar.link.text.invoices=Lister les factures

@@ -1,0 +1,136 @@
+@(thisInstance: models.Invoice)
+
+@import java.lang.Integer; var rowOneSize=0; var rowTwoSize=0
+@import java.lang.Boolean; var shouldDisplayInTwoRows=false
+@import _root_.fr.watchnext.utils.views.ModelDisplay
+@import fr.watchnext.utils.tags._
+@import tags._
+
+@import java.lang.String; val key="invoice"
+@import java.lang.String; val controllerName="Invoices"
+
+@end_body = {
+    <div class="form-group">
+      <!-- <div class="col-sm-offset-1 col-sm-10 text-center">
+      	<a class="btn btn-primary" href="routes.Accounting.addOrderDocumentByWatchToSellId(watch_to_sell.id)"><span class="glyphicon glyphicon-list-alt"></span>@Html(Messages("admin.watchtosell.action.new.order.document"))</a>
+        <a class="btn btn-success" href="routes.Accounting.addInvoiceByWatchToSellId(watch_to_sell.id)"><span class="glyphicon glyphicon-list-alt"></span>@Html(Messages("admin.watchtosell.action.new.invoice"))</a>
+        if(watch_to_sell.customerThatBoughtTheWatch != null) {
+        <a class="btn btn-warning" href="routes.Accounting.addPSellingCByWatchId(watch_to_sell.id)"><span class="glyphicon glyphicon-certificate"></span>@Html(Messages("admin.watchtosell.action.new.waranty"))</a>
+        }                 
+      </div>-->
+    </div>
+}
+
+@table(values:Array[(String,String)], rowOne: Integer=4) = {
+<div class="table-responsive">
+	<table class="table table-bordered">
+		@if(values != null && values.size > 8) {
+			@{shouldDisplayInTwoRows = true}
+			@{rowOneSize = rowOne / 2}
+			@{rowTwoSize = 6 - rowOneSize}
+		} else {
+			@{shouldDisplayInTwoRows = false}
+			@{rowOneSize = rowOne}
+			@{rowTwoSize = 12 - rowOneSize}
+		}
+		@for(((label, value), index) <- values.zipWithIndex) {
+		@if(!shouldDisplayInTwoRows || index%2 == 0) { 
+		<tr>
+		}
+			<td class="col-label col-xs-@rowOneSize">@label</td>
+			<td class="col-value col-xs-@rowTwoSize">@value</td>
+		@if(!shouldDisplayInTwoRows || index%2 == 1) {
+		</tr>
+		}
+		}
+	</table>
+</div>
+}
+
+@layouts.for_printing(key, key+"-display") {
+
+	<div class="container">
+		<div class="row brand-row">
+			<div class="col-xs-offset-3 col-xs-6 text-center">
+				<img src="@asset("images/logo.png")" class="img-responsive" alt="BYRNE"/>
+			</div>
+		</div>
+		<div class="row front-row">
+			<div class="col-xs-4 text-left">
+				<span class="invoice-location">Paris, le </span><span class="invoice-date">@display_date(thisInstance.getInvoiceDate)</span>
+			</div>
+			<div class="col-xs-offset-4 col-xs-4 text-left">
+				<span class="invoice-customer">@thisInstance.customer</span>
+			</div>
+		</div>
+		<div class="row invoice-name-row">
+			<div class="col-xs-12 text-center">
+				<h2 class="invoice-number">Facture @thisInstance.uniqueSerialKey</h2>
+			</div>
+		</div>
+		@if_not_null_nor_empty(thisInstance.customerTypeOfInvoice) {
+		<div class="row invoice-type-row">
+			<div class="col-xs-12 text-left">
+				<p class="invoice-type">Type de facture : @thisInstance.customerTypeOfInvoice</p>
+			</div>
+		</div>
+		}
+		<div class="row description-row">
+			<div class="col-xs-6 text-left">
+				@table( Array(("Marque(s)",thisInstance.brands),
+            										 ("Calibre(s)", thisInstance.movements),
+            										 ("N° boite(s)", thisInstance.serials)))
+			</div>
+			<div class="col-xs-6 text-left">
+				@table( Array(("Boite(s)",thisInstance.cases),
+            				  ("Bracelet(s)", thisInstance.straps),
+            				  ("Cadran(s)", thisInstance.dials)))			            		
+			</div>
+		</div>
+		<div class="row items-row">
+			<div class="col-xs-12 text-left">
+				<div class="table-responsive">
+					@table(thisInstance.items.map(item => (item.name, display_floating_price(item.cost).toString)).toArray)
+				</div>
+			</div>
+		</div>
+		<div class="row prices-row">
+			<div class="col-xs-offset-7 col-xs-5 text-left">
+				@table( Array(("Total des fournitures",display_floating_price(thisInstance.getCalculatedPartsCost()).toString),
+            										 ("Total de la main d'oeuvre", display_floating_price(thisInstance.getManWorkingCost()).toString),
+            										 ("Frais d'expédition", display_floating_price(thisInstance.getShippingCost()).toString)), 8)			            		
+			</div>
+		</div>
+		<div class="row ht-row">
+			<div class="col-xs-offset-7 col-xs-5 text-left">
+				@table( Array(("Total H.T.",display_floating_price(thisInstance.getBeforeTaxesPrice()).toString)), 8)
+			</div>
+		</div>
+		<div class="row vat-row">
+			<div class="col-xs-offset-7 col-xs-5 text-left">
+            	@table( Array(("TVA", display_floating_price(thisInstance.getVat()).toString)), 8)
+			</div>
+		</div>
+		<div class="row total-row">
+			<div class="col-xs-offset-7 col-xs-5 text-left">
+            	@table( Array(("Net à payer", display_floating_price(thisInstance.getPrice()).toString)), 8)			            		
+			</div>
+		</div>
+		@if_not_null_nor_empty(thisInstance.remarks) {
+		<div class="row remarks-row">
+			<div class="col-xs-12 text-center">
+				<p class="invoice-remarks">@thisInstance.remarks</p>
+			</div>
+		</div>
+		}
+	</div>
+	
+	<div class="footer-row">
+		<div class="col-xs-12 text-center">
+			<h3>SAS Byrne</h3>
+			<h3>3, rue portefoin - 75003 Paris - R.C.S. 812354231 Paris - APE 527F</h3>
+			<h3>01 42 74 09 81</h3>
+		</div>
+	</div>
+
+}

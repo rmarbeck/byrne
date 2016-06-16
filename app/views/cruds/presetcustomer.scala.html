@@ -1,0 +1,31 @@
+@(thisInstance: models.PresetCustomer)
+
+@import _root_.fr.watchnext.utils.views.ModelDisplay
+
+@import java.lang.String; val key="presetcustomer"
+@import java.lang.String; val controllerName="PresetCustomers"
+
+@end_body = {
+    <div class="form-group">
+      <!-- <div class="col-sm-offset-1 col-sm-10 text-center">
+      	<a class="btn btn-primary" href="routes.Accounting.addOrderDocumentByWatchToSellId(watch_to_sell.id)"><span class="glyphicon glyphicon-list-alt"></span>@Html(Messages("admin.watchtosell.action.new.order.document"))</a>
+        <a class="btn btn-success" href="routes.Accounting.addInvoiceByWatchToSellId(watch_to_sell.id)"><span class="glyphicon glyphicon-list-alt"></span>@Html(Messages("admin.watchtosell.action.new.invoice"))</a>
+        if(watch_to_sell.customerThatBoughtTheWatch != null) {
+        <a class="btn btn-warning" href="routes.Accounting.addPSellingCByWatchId(watch_to_sell.id)"><span class="glyphicon glyphicon-certificate"></span>@Html(Messages("admin.watchtosell.action.new.waranty"))</a>
+        }                 
+      </div>-->
+    </div>
+}
+
+@layouts.main(key, key+"-display") {
+
+@defining(new ModelDisplay(thisInstance, key+".display")) { modelDisplay =>
+		@{ 	modelDisplay.addField("shortName", "getShortName");
+			modelDisplay.addField("nameAndAddress", "getNameAndAddress");
+			modelDisplay.addField("remarks");
+		}
+	
+	@fr.watchnext.utils.templates.display_with_default_links(modelDisplay, controllerName, end_body)
+}
+
+}

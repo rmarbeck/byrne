@@ -1,0 +1,20 @@
+@(head: Html, footer: Html, id: String = "", end_scripts: Html = Html(""))(content: Html)
+@import tags._
+@import fr.watchnext.utils.tags._
+<!DOCTYPE html>
+
+<html lang="@Messages("global.code.lang.head")">
+<head>
+@head
+</head>
+<body @if_not_null_nor_empty(id) {id="@id"}>
+@content
+
+@if_body_not_empty(footer) {
+@footer
+}
+
+@end_scripts
+
+</body>
+</html>

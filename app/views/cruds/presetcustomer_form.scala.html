@@ -1,0 +1,20 @@
+@(thisInstance: Form[models.PresetCustomer], isItNew: Boolean)
+
+@import _root_.fr.watchnext.utils.views.FormDisplay
+
+@import java.lang.String; val key="presetcustomer"
+@import java.lang.String; val modelName="PresetCustomer"
+
+@layouts.main(key, key+"-form") {
+	@defining(new FormDisplay(thisInstance, modelName, key+".form")) { formDisplay =>
+		@{ 
+		   
+		   formDisplay.addFormField("shortName", true, "input");
+		   formDisplay.addFormField("nameAndAddress", true, "textarea");
+		   formDisplay.addFormField("remarks", true, "textarea");
+		}
+	
+	@fr.watchnext.utils.templates.form_with_default_links(formDisplay, isItNew)
+	}
+
+}
