@@ -1,6 +1,7 @@
 @(thisInstance: Form[models.Invoice], isItNew: Boolean)
 
 @import _root_.fr.watchnext.utils.views.FormDisplay
+@import utils.ItemsHelper
 
 @import java.lang.String; val key="invoice"
 @import java.lang.String; val modelName="Invoice"
@@ -46,19 +47,12 @@
 		}
 
     
-    	@if(!thisInstance.hasErrors() && thisInstance.get().items != null) {
-	    	var items_names = [@Html((for(item <- thisInstance.get().items) yield "\""+item.name+"\"").mkString(", "))];
-	    	var items_costs = [@Html((for(item <- thisInstance.get().items) yield "\""+item.cost+"\"").mkString(", "))];
-	    	var items_novats = [@Html((for(item <- thisInstance.get().items) yield "\""+item.noVat+"\"").mkString(", "))];
-	    	items_names.splice(0, 1);
-	    	items_costs.splice(0, 1);
-	    	items_novats.splice(0, 1);
-    	} else {
-    		@thisInstance.data()
-	    	var items_names = [];
-	    	var items_costs = [];
-	    	var items_novats = [];
-    	}
+    	var items_names = [@Html((for(item <- ItemsHelper.getItems(thisInstance)) yield "\""+item.name+"\"").mkString(", "))];
+    	var items_costs = [@Html((for(item <- ItemsHelper.getItems(thisInstance)) yield "\""+item.cost+"\"").mkString(", "))];
+    	var items_novats = [@Html((for(item <- ItemsHelper.getItems(thisInstance)) yield "\""+item.noVat+"\"").mkString(", "))];
+    	items_names.splice(0, 1);
+    	items_costs.splice(0, 1);
+    	items_novats.splice(0, 1);
     	
     	$( "#items_0_name, #items_0_cost, #items_0_noVat" ).parents("div.form-group").parent().wrapAll("<div class='row items-row items_line_0'></div>");
     	$( ".items_line_0").after("<button id='remove-line' class='btn btn-danger col-xs-2'>&nbsp;Retirer</button>")

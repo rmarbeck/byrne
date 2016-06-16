@@ -150,14 +150,14 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
     }
     
     public static Optional<Invoice> findLastByKey() {
-    	List<Invoice> invoices = find.orderBy("unique_serial_key ASC").findList();
+    	List<Invoice> invoices = find.orderBy("unique_serial_key DESC").findList();
         if (invoices != null && invoices.size() != 0)
         	return Optional.of(invoices.get(0));
         return Optional.empty();
 	}
     
     private static String defaultOrdering() {
-    	return "invoice_date ASC";
+    	return "invoice_date DESC";
     }
 
     public static PagedList<Invoice> page(int page, int pageSize, String sortBy, String order, String filter) {
@@ -190,12 +190,11 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
     	int index = 0;
     	if (this.checkItems)
     		for(InvoiceItem currrentItem : this.items) {
-    			if (InvoiceItem.doesAlreadyExist(currrentItem.name)) {
-    				errors.add(new ValidationError("checkItems", currrentItem.name + " existe deja."));
-    				errors.add(new ValidationError("items["+index+"].name", currrentItem.name + " existe deja."));
+    			if (InvoiceItem.doesAlreadyExist(currrentItem.name, this.id)) {
+    				errors.add(new ValidationError("checkItems", currrentItem.name + " existe deja"));
     			}
     			index++;
-    	}
+    		}
         return errors.isEmpty() ? null : errors;
     }
 

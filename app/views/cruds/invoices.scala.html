@@ -10,6 +10,14 @@
 
 @layouts.main(key, key+"-page") {
 
+    <div class="row">
+        <div class="col-xs-12 text-center">
+        	<a type="button" class="btn btn-success" href="@routes.Invoices.createInvoice(0)"><span class="glyphicon glyphicon-plus"></span>@enhanced_messages("link.text.preset.collector.sav")</a>
+        	<a type="button" class="btn btn-warning" href="@routes.Invoices.createInvoice(1)"><span class="glyphicon glyphicon-plus"></span>@enhanced_messages("link.text.preset.collector.avv")</a>
+        	<a type="button" class="btn btn-primary" href="@routes.Invoices.createInvoice(2)"><span class="glyphicon glyphicon-plus"></span>@enhanced_messages("link.text.preset.hometime")</a>
+        </div>
+    </div>
+
 @defining(new PageDisplay(currentPage, defaultSorting, key+".page")) { pageDisplay =>
 	@{  pageDisplay.addTableField("invoiceDate", "invoice.date", "getInvoiceDate", false, "date short");
 		pageDisplay.addTableField("uniqueSerialKey", "unique.serial.key", "getUniqueSerialKey", false);

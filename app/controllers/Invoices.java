@@ -48,7 +48,7 @@ public class Invoices extends Controller {
 				invoice.checkItems = false;
 				break;
 			default:
-				invoice.checkItems = false;
+				invoice.checkItems = true;
 		}
 		InvoiceKey.retrieveNextInvoiceKey().ifPresent(key -> invoice.uniqueSerialKey = key.toString());
 		

@@ -43,6 +43,16 @@ public class InvoiceItem extends Model implements CrudReady<InvoiceItem, Invoice
 	@ManyToOne
 	public Invoice invoice;
 	
+	public InvoiceItem() {
+    	super();
+    }
+	
+	public InvoiceItem(String name, Float cost, boolean noVat) {
+    	this.name = name;
+    	this.cost = cost;
+    	this.noVat = noVat;
+    }
+	
 	public static InvoiceItem of() {
     	if (singleton == null)
     		singleton = new InvoiceItem();
@@ -60,9 +70,14 @@ public class InvoiceItem extends Model implements CrudReady<InvoiceItem, Invoice
         return notNullList(find.all());
     }
     
-    public static boolean doesAlreadyExist(String name) {
-    	List<InvoiceItem> result = find.where().ieq("name", name).findList();
-        return result != null && result.size() !=0;
+    public static boolean doesAlreadyExist(String name, Long idOfInvoice) {
+    	if (idOfInvoice == null) {
+    		List<InvoiceItem> result = find.where().ieq("name", name).findList();
+    		return result != null && result.size() !=0;
+    	} else {
+    		List<InvoiceItem> result = find.where().conjunction().ieq("name", name).ne("invoice.id", idOfInvoice).findList();
+    		return result != null && result.size() !=0;
+    	}
     }
     
     private static String defaultOrdering() {

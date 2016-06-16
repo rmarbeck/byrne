@@ -82,6 +82,9 @@ navbar.link.text.preset.hometime=Nouvelle facture Hometime
 navbar.link.text.empty=Nouvelle facture vide
 navbar.link.text.invoices=Lister les factures
 
+link.text.preset.collector.sav=Collector Square SAV
+link.text.preset.collector.avv=Collector Square AVV
+link.text.preset.hometime=Hometime
 
 admin.page.text.display.range=Afficher '  
 admin.page.text.display.range.to= à '
