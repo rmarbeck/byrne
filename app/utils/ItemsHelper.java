@@ -44,11 +44,17 @@ public class ItemsHelper {
 	}
 	
 	private static Float getValueByIndexForCost(Map<String, String> datas, int index) {
-		return Float.parseFloat(datas.get(getKeyNameByIndexForCost(index)));
+		String rawValue = datas.get(getKeyNameByIndexForCost(index));
+		if (rawValue != null && !"".equals(rawValue))
+			return Float.parseFloat(rawValue);
+		return null;
 	}
 	
 	private static boolean getValueByIndexForNoVat(Map<String, String> datas, int index) {
-		return Boolean.getBoolean(datas.get(getKeyNameByIndexForNoVat(index)));
+		String rawValue = datas.get(getKeyNameByIndexForNoVat(index));
+		if (rawValue != null && !"".equals(rawValue))
+			return Boolean.getBoolean(rawValue);
+		return false;
 	}
 	
 	private static String getKeyNameByIndexForName(int index) {
