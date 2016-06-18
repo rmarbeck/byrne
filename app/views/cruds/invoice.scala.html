@@ -3,6 +3,7 @@
 @import java.lang.Integer; var rowOneSize=0; var rowTwoSize=0
 @import java.lang.Boolean; var shouldDisplayInTwoRows=false
 @import _root_.fr.watchnext.utils.views.ModelDisplay
+@import utils.InvoiceKey
 @import fr.watchnext.utils.tags._
 @import tags._
 
@@ -47,7 +48,7 @@
 </div>
 }
 
-@layouts.for_printing(key, key+"-display") {
+@layouts.for_printing(key, key+"-display", thisInstance.getUniqueSerialKey) {
 
 	<div class="container">
 		<div class="row brand-row">

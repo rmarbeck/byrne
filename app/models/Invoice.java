@@ -163,6 +163,16 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
         return Optional.empty();
 	}
     
+    public static boolean doesKeyAlreadyExist(String key, Long idOfInvoice) {
+    	if (idOfInvoice == null) {
+    		Optional<Invoice> result = findByKey(key);
+    		return result.isPresent();
+    	} else {
+    		List<Invoice> invoice = find.where().conjunction().ieq("unique_serial_key", key).ne("id", idOfInvoice).findList();
+    		return invoice != null && invoice.size() == 1;
+    	}
+    }
+    
     private static String defaultOrdering() {
     	return "invoice_date DESC";
     }
@@ -195,7 +205,7 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
     public List<ValidationError> validate() {
     	List<ValidationError> errors = new ArrayList<ValidationError>();
     	if (this.uniqueSerialKey != null)
-    		if (Invoice.findByKey(this.uniqueSerialKey).isPresent())
+    		if (doesKeyAlreadyExist(this.uniqueSerialKey, this.id))
     			errors.add(new ValidationError("uniqueSerialKey", "Le numéro de facture existe déjà"));
     	int index = 0;
     	if (this.checkItems)

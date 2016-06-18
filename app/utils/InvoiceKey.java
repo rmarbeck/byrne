@@ -59,4 +59,7 @@ public class InvoiceKey {
 		return Optional.empty();
 	}
 
+	public static int getSerial(String keyAsString) {
+		return fromString(keyAsString).orElse(new InvoiceKey(java.time.Year.now().getValue(), 0)).serial;
+	}
 }

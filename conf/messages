@@ -9,7 +9,7 @@ presetcustomer.page.remarks=Remarques
 
 invoice.page.nothing.to.display=Aucune facture à afficher
 invoice.page.title=Factures
-invoice.html.title=Factures
+invoice.html.title=Facture {0}
 
 admin.presetcustomer.form.shortname.label.name=Nom court
 admin.presetcustomer.form.shortname.placeholder.name=Girard Perregeaux

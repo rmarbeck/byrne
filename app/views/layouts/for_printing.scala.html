@@ -1,9 +1,9 @@
-@(key: String, id: String = "", before_content: Html = Html(""), end_scripts_bottom: Html = Html(""), in_head_content: Html = Html(""))(content: Html)
+@(key: String, id: String = "", title_option: String = "", before_content: Html = Html(""), end_scripts_bottom: Html = Html(""), in_head_content: Html = Html(""))(content: Html)
 
 @import tags._
 
 @head = {
-    	@layouts.fragments.head_min(key)
+    	@layouts.fragments.head_min(key, title_option)
         @local_stylesheet("stylesheets/bootstrap_for_printing-v1.0.css")
         
 	    @local_stylesheet("stylesheets/style.css")
