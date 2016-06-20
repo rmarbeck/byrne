@@ -174,7 +174,7 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
     }
     
     private static String defaultOrdering() {
-    	return "invoice_date DESC";
+    	return "unique_serial_key DESC";
     }
 
     public static PagedList<Invoice> page(int page, int pageSize, String sortBy, String order, String filter) {
@@ -183,23 +183,29 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
     
 	@Override
 	public void save() {
-		Logger.error("Saving..."+this.uniqueSerialKey);
-		Logger.error("Saving..."+this.id);
 		creationDate = new Date();
 		lastModificationDate = new Date();
+		prepareBeforeSaveOrUpdate();
 		super.save();
 	}
 
 
 	@Override
 	public void update() {
-		try {
-			Logger.debug("Updating "+this.getClass().getName());
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
 		lastModificationDate = new Date();
+		prepareBeforeSaveOrUpdate();
 		super.update();
+	}
+	
+	private void prepareBeforeSaveOrUpdate() {
+		if (this.items != null && this.items.size() != 0) {
+			List<InvoiceItem> cleanedList = new ArrayList<InvoiceItem>();
+			for (InvoiceItem item : this.items)
+				if (item.name != null && !item.name.equals(""))
+					if (item.cost != null)
+						cleanedList.add(item);
+			this.items = cleanedList;
+		}
 	}
 	
     public List<ValidationError> validate() {

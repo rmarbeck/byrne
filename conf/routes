@@ -15,5 +15,7 @@ GET		/create/:model						fr.watchnext.utils.controllers.CrudHelper.create(model:
 GET		/edit/:model/:id					fr.watchnext.utils.controllers.CrudHelper.edit(model: String, id: Long)
 POST	/manage/:model						fr.watchnext.utils.controllers.CrudHelper.manage(model: String)
 
+GET 	/ajaxDoesItemAlreadyExist			controllers.Application.ajaxDoesItemAlreadyExist(name: String, id: Long) 
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               		controllers.Assets.versioned(path="/public", file: Asset)

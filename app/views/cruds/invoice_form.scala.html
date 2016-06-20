@@ -7,6 +7,9 @@
 @import java.lang.String; val modelName="Invoice"
 
 @end_scripts = {
+@helper.javascriptRouter("jsRoutes")(
+  routes.javascript.Application.ajaxDoesItemAlreadyExist
+)
 <script>
     $(document).ready(function(){
     
@@ -17,6 +20,7 @@
         	$('.items_line_'+copyPosition).find("[id*='items_']").each(function() {
 				$(this).attr("id", $(this).attr("id").replace(copiedPosition,copyPosition));
 				$(this).attr("name", $(this).attr("name").replace(copiedPosition,copyPosition));
+				$(this).next("span.errors").text("");
             });
             $('.items_line_'+copyPosition).find("[for*='items_']").each(function() {
             	$(this).attr("for", $(this).attr("for").replace(copiedPosition,copyPosition));
@@ -45,8 +49,18 @@
             });
             return price*.4	;
 		}
+		
+		function markAsDuplicated(inputUpdated) {
+    		inputUpdated.parents("div.items-row").addClass("has-error");
+    		inputUpdated.next("span").addClass("control-label");
+    		inputUpdated.next("span.errors").text("Existe déjà");
+    	}
+    	
+    	function resetDuplication(inputUpdated) {
+    		inputUpdated.parents("div.items-row").removeClass("has-error");
+    		inputUpdated.next("span.errors").text("");
+    	}
 
-    
     	var items_names = [@Html((for(item <- ItemsHelper.getItems(thisInstance)) yield "\""+item.name+"\"").mkString(", "))];
     	var items_costs = [@Html((for(item <- ItemsHelper.getItems(thisInstance)) yield "\""+item.cost+"\"").mkString(", "))];
     	var items_novats = [@Html((for(item <- ItemsHelper.getItems(thisInstance)) yield "\""+item.noVat+"\"").mkString(", "))];
@@ -116,10 +130,43 @@
 		  $( "#customer" ).val( $( "#customer_data option:selected" ).val() );
 		});
 		
+        $( "#checkItems" ).change(function() {
+		  if ($( this ).not(':checked')) {
+		  	$.each($( "input[id$='_name']" ), function() {resetDuplication($( this ))})
+		  }
+		});
+		
+		
 		$("body").on("change", "input[id$='_cost']", function() {
     		$( "#partsCost" ).attr( "placeholder", computePartsCost());
 		});
-         
+		
+		$("body").on("focusout", "input[id$='_name']", function() {
+			if ($( "input#id" ).attr( "value" ))
+			      var idOfCurrentInvoice = $( "input#id" ).attr( "value" );
+			    else
+			      var idOfCurrentInvoice = 0;
+			      
+			var inputUpdated = $(this);
+			
+			if ($( "#checkItems" ).is(':checked')) {
+	    		$.ajax(jsRoutes.controllers.Application.ajaxDoesItemAlreadyExist(inputUpdated.val(), idOfCurrentInvoice))
+	    			.done( "ajax/test.json", function( json ) {
+	    				if(json.result) {
+	    					markAsDuplicated(inputUpdated)
+	    				} else {
+	    					resetDuplication(inputUpdated);
+							$.each($( "input[id$='_name']" ).not(inputUpdated), function() {
+	 												if (inputUpdated.val() === $( this ).val() )
+														markAsDuplicated( $( inputUpdated ) )
+													});
+	    				}
+					  })
+	    			.fail( function(xhr, textStatus, errorThrown) {
+				        console(xhr.responseText);
+				    });
+			}
+		});
     })  
 </script>
 } 
