@@ -53,8 +53,8 @@ public class User extends Model implements CrudReady<User, User> {
     }
 	
 	// -- Special Accessors
-	public boolean isPasswordValid(String login, String enteredPassword) {
-		return true;
+	public boolean isPasswordValid(String enteredPassword) {
+		return password.equals(enteredPassword);
 	}
 	
     // -- Queries

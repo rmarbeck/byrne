@@ -20,7 +20,7 @@ public class FullLogin extends SimpleLogin {
 	}
 	
 	public String getToken() {
-		return "test";
+		return getUsername();
 	}
 
 	public String getUsername() {
