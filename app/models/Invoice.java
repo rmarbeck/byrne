@@ -149,6 +149,14 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
         return notNullList(find.all());
     }
     
+    public static Optional<Invoice> findById(Long id) {
+    	Invoice invoice = find.byId(id.toString());
+        if (invoice != null)
+        	return Optional.of(invoice);
+        return Optional.empty();
+	}
+    
+    
     public static Optional<Invoice> findLastByKey() {
     	List<Invoice> invoices = find.orderBy("unique_serial_key DESC").findList();
         if (invoices != null && invoices.size() != 0)

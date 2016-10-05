@@ -8,6 +8,7 @@ GET     /defaultLogout						controllers.Application.logout()
 
 GET		/create/Invoices					controllers.Invoices.createEmptyInvoice()
 GET		/create/Invoices/:id				controllers.Invoices.createInvoice(id: Long)
+GET		/duplicate/Invoices/:id				controllers.Invoices.duplicateInvoice(id: Long)
 
 GET		/display/:model/All					fr.watchnext.utils.controllers.CrudHelper.displayAll(model: String, d:Int ?=20)
 GET		/display/:model/:id					fr.watchnext.utils.controllers.CrudHelper.display(model: String, id: Long)

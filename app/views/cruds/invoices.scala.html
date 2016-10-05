@@ -7,6 +7,9 @@
 @import java.lang.String; val controllerName="Invoices"
 @import java.lang.String; val defaultSorting="nom, id, date"
 
+@optionallink(id:Long) = {
+    @routes.Invoices.duplicateInvoice(id)
+}
 
 @layouts.main(key, key+"-page") {
 
@@ -26,7 +29,7 @@
 		pageDisplay.addTableField("customerTypeOfInvoice", "customer.type.of.invoice", "getCustomerTypeOfInvoice", false)
 	}
 	
-	@fr.watchnext.utils.templates.page_with_default_links_and_action(pageDisplay, controllerName, null, currentSortBy, currentOrder, currentFilter, currentSize, true, null)
+	@fr.watchnext.utils.templates.page_with_default_links_and_action(pageDisplay, controllerName, optionallink, currentSortBy, currentOrder, currentFilter, currentSize, true, null)
 }
 }
 

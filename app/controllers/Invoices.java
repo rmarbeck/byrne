@@ -3,6 +3,7 @@ package controllers;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 
 import models.Invoice;
 import models.PresetCustomer;
@@ -15,6 +16,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import utils.InvoiceKey;
 
+@Security.Authenticated(MyAuthenticator.class)
 public class Invoices extends Controller {
 	public static Crud<Invoice, Invoice> crud = Crud.of(
 			Invoice.of(),
@@ -28,6 +30,10 @@ public class Invoices extends Controller {
 	
 	public Result createInvoice(Long id) {
         return crud.create(newInvoice(id.intValue()));
+    }
+	
+	public Result duplicateInvoice(Long id) {
+        return crud.create(duplicate(id));
     }
 	
 	private static Form<Invoice> newInvoice(int id) {
@@ -57,6 +63,19 @@ public class Invoices extends Controller {
 		InvoiceKey.retrieveNextInvoiceKey().ifPresent(key -> invoice.uniqueSerialKey = key.toString());
 		
 		return Form.form(models.Invoice.class).fill(invoice);
+	}
+	
+	private static Form<Invoice> duplicate(Long id) {
+		models.Invoice invoice = new Invoice();
+		InvoiceKey.retrieveNextInvoiceKey().ifPresent(key -> invoice.uniqueSerialKey = key.toString());
+		
+		Optional<models.Invoice> invoiceToDuplicate = Invoice.findById(id);
+		invoiceToDuplicate.ifPresent(invoiceToDup -> {
+			invoice.customer = invoiceToDup.customer;
+			invoice.customerTypeOfInvoice = invoiceToDup.customerTypeOfInvoice;
+			invoice.remarks = invoiceToDup.remarks;
+		});
+		return Form.form(models.Invoice.class).fill(invoice);	
 	}
 }
 
