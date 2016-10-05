@@ -178,7 +178,7 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
     }
 
     public static PagedList<Invoice> page(int page, int pageSize, String sortBy, String order, String filter) {
-    	return pageDisjunction(find, page, pageSize, sortBy, order, filter, Arrays.asList(/*"unique_serial_key", "customer"*/), defaultOrdering());
+    	return pageDisjunction(find, page, pageSize, sortBy, order, filter, Arrays.asList("unique_serial_key", "customer", "items.name"), defaultOrdering());
     }
     
 	@Override

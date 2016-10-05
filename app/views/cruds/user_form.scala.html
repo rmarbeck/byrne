@@ -1,0 +1,20 @@
+@(thisInstance: Form[models.User], isItNew: Boolean)
+
+@import _root_.fr.watchnext.utils.views.FormDisplay
+
+@import java.lang.String; val key="user"
+@import java.lang.String; val modelName="User"
+
+@layouts.main(key, key+"-form") {
+	@defining(new FormDisplay(thisInstance, modelName, key+".form")) { formDisplay =>
+		@{ 
+		   
+		   formDisplay.addFormField("login", true, "input");
+		   formDisplay.addFormField("password", true, "input", 'type -> "password");
+		   formDisplay.addFormField("name", true, "input");
+		}
+	
+	@fr.watchnext.utils.templates.form_with_default_links(formDisplay, isItNew)
+	}
+
+}

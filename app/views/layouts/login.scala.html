@@ -1,0 +1,32 @@
+@(key: String, id: String = "", before_content: Html = Html(""), end_scripts_bottom: Html = Html(""), in_head_content: Html = Html(""))(content: Html)
+
+@import tags._
+
+
+@head = {
+    	@layouts.fragments.head_min(key)
+        @layouts.fragments.bootstrap_css()
+        
+	    @local_stylesheet("stylesheets/style.css")
+	    @local_stylesheet("stylesheets/signin.css")
+
+        @in_head_content
+}
+
+@footer = {
+    @layouts.fragments.footer_min()
+}
+
+@end_scripts = {
+    @layouts.fragments.end_scripts()
+    <script src="@routes.Assets.versioned("javascripts/main.js")"></script>
+    @end_scripts_bottom
+}
+
+@layouts.base(head, footer, id, end_scripts) {
+	
+	@before_content
+
+
+    @content
+}

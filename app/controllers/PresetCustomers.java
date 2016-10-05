@@ -5,6 +5,7 @@ import fr.watchnext.utils.controllers.*;
 import play.mvc.Controller;
 import play.mvc.Security;
 
+@Security.Authenticated(MyAuthenticator.class)
 public class PresetCustomers extends Controller {
 	public static Crud<PresetCustomer, PresetCustomer> crud = Crud.of(
 			PresetCustomer.of(),

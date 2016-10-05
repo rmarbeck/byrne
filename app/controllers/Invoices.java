@@ -15,6 +15,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import utils.InvoiceKey;
 
+@Security.Authenticated(MyAuthenticator.class)
 public class Invoices extends Controller {
 	public static Crud<Invoice, Invoice> crud = Crud.of(
 			Invoice.of(),
@@ -45,6 +46,10 @@ public class Invoices extends Controller {
 				break;
 			case 2:
 				invoice.customer = PresetCustomer.findByName("hometime").nameAndAddress;
+				invoice.checkItems = false;
+				break;
+			case 3:
+				invoice.customer = PresetCustomer.findByName("miller").nameAndAddress;
 				invoice.checkItems = false;
 				break;
 			default:

@@ -1,0 +1,18 @@
+@(thisInstance: models.User)
+
+@import _root_.fr.watchnext.utils.views.ModelDisplay
+
+@import java.lang.String; val key="user"
+@import java.lang.String; val controllerName="Users"
+
+@layouts.main(key, key+"-display") {
+
+@defining(new ModelDisplay(thisInstance, key+".display")) { modelDisplay =>
+		@{ 	modelDisplay.addField("login", "getLogin");
+			modelDisplay.addField("name", "getName");
+		}
+	
+	@fr.watchnext.utils.templates.display_with_default_links(modelDisplay, controllerName, null)
+}
+
+}

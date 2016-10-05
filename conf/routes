@@ -4,6 +4,7 @@
 
 # Home page
 GET     /									controllers.Application.index()
+GET     /defaultLogout						controllers.Application.logout()
 
 GET		/create/Invoices					controllers.Invoices.createEmptyInvoice()
 GET		/create/Invoices/:id				controllers.Invoices.createInvoice(id: Long)
@@ -14,6 +15,10 @@ GET		/display/:model/page/				fr.watchnext.utils.controllers.CrudHelper.page(mod
 GET		/create/:model						fr.watchnext.utils.controllers.CrudHelper.create(model: String)
 GET		/edit/:model/:id					fr.watchnext.utils.controllers.CrudHelper.edit(model: String, id: Long)
 POST	/manage/:model						fr.watchnext.utils.controllers.CrudHelper.manage(model: String)
+
+GET 	/login								fr.watchnext.utils.controllers.AuthenticateHelper.prepareLogin(controller: String ?= "StandardLogin", origin: String ?= "")
+POST 	/login/:controller					fr.watchnext.utils.controllers.AuthenticateHelper.login(controller: String)
+GET 	/logout								fr.watchnext.utils.controllers.AuthenticateHelper.logout(controller: String ?= "StandardLogin")
 
 GET 	/ajaxDoesItemAlreadyExist			controllers.Application.ajaxDoesItemAlreadyExist(name: String, id: Long) 
 

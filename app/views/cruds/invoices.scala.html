@@ -5,7 +5,7 @@
 
 @import java.lang.String; val key="invoice"
 @import java.lang.String; val controllerName="Invoices"
-@import java.lang.String; val defaultSorting="invoiceDate"
+@import java.lang.String; val defaultSorting="nom, id, date"
 
 
 @layouts.main(key, key+"-page") {
@@ -15,6 +15,7 @@
         	<a type="button" class="btn btn-success" href="@routes.Invoices.createInvoice(0)"><span class="glyphicon glyphicon-plus"></span>@enhanced_messages("link.text.preset.collector.sav")</a>
         	<a type="button" class="btn btn-warning" href="@routes.Invoices.createInvoice(1)"><span class="glyphicon glyphicon-plus"></span>@enhanced_messages("link.text.preset.collector.avv")</a>
         	<a type="button" class="btn btn-primary" href="@routes.Invoices.createInvoice(2)"><span class="glyphicon glyphicon-plus"></span>@enhanced_messages("link.text.preset.hometime")</a>
+        	<a type="button" class="btn btn-info" href="@routes.Invoices.createInvoice(3)"><span class="glyphicon glyphicon-plus"></span>@enhanced_messages("link.text.preset.miller")</a>
         </div>
     </div>
 

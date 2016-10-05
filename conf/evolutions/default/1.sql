@@ -42,11 +42,23 @@ create table preset_customer (
   constraint pk_preset_customer primary key (id))
 ;
 
+create table appuser (
+  id                        bigint not null,
+  login                     varchar(255),
+  password                  varchar(255),
+  name                      varchar(255),
+  privilege_level           bigint,
+  constraint uq_appuser_login unique (login),
+  constraint pk_appuser primary key (id))
+;
+
 create sequence invoice_seq;
 
 create sequence invoice_item_seq;
 
 create sequence preset_customer_seq;
+
+create sequence appuser_seq;
 
 alter table invoice_item add constraint fk_invoice_item_invoice_1 foreign key (invoice_id) references invoice (id) on delete restrict on update restrict;
 create index ix_invoice_item_invoice_1 on invoice_item (invoice_id);
@@ -63,6 +75,8 @@ drop table if exists invoice_item;
 
 drop table if exists preset_customer;
 
+drop table if exists appuser;
+
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists invoice_seq;
@@ -70,4 +84,6 @@ drop sequence if exists invoice_seq;
 drop sequence if exists invoice_item_seq;
 
 drop sequence if exists preset_customer_seq;
+
+drop sequence if exists appuser_seq;
 

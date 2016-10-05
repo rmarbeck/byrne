@@ -1,0 +1,24 @@
+users:
+    - &Admin !!models.User
+         login:             admin
+         name:              administrateur
+         password:          pass
+         privilegeLevel:    0
+
+    - &Test !!models.User
+         login:             test
+         name:              test
+         password:          test
+         privilegeLevel:    1
+
+presetcustomers:
+    - &Hometime !!models.PresetCustomer
+         nameAndAddress: |
+             Watch next SAS
+             11 bis rue Pierre Curie
+             78600 Maisons Laffitte
+         shortName:           Hometime
+         remarks:             Hometime
+
+#Fin
+

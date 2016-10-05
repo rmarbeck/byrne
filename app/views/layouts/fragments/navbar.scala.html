@@ -29,9 +29,10 @@
 													 .add("navbar.link.text.preset.collector.sav", routes.Invoices.createInvoice(0).toString, false, 20)
 													 .add("navbar.link.text.preset.collector.avv", routes.Invoices.createInvoice(1).toString, false, 22)
 													 .add("navbar.link.text.preset.hometime", routes.Invoices.createInvoice(2).toString, false, 24)
+													 .add("navbar.link.text.preset.miller", routes.Invoices.createInvoice(3).toString, false, 25)
 													 .add("navbar.link.text.empty", routes.Invoices.createInvoice(-1).toString, false, 26);
 			navbar.addLeftLink("customer", ReverseCrudHelperAdapter.displayAll("PresetCustomers",10).toString, false, 30);
-			navbar.addRightLink("text.logout", "#", false, 40);
+			navbar.addRightLink("text.logout", routes.Application.logout().toString, false, 40);
 			"";
 		}
 		

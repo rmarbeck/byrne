@@ -1,0 +1,23 @@
+@(form: Form[models.FullLogin], origin: String)
+
+@import tags._
+@import fr.watchnext.utils.tags._
+
+@layouts.login("login", "login") {
+
+	
+
+    @helper.form(action = _root_.fr.watchnext.utils.controllers.ReverseAuthenticateHelperAdapter.login("StandardLogin"), args = 'class -> "form-signin") {
+
+	    @display_flash()
+
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input name="username" type="text" class="form-control" placeholder="Username" autofocus>
+        <input name="password" type="password" class="form-control" placeholder="Password">
+        
+        <input name="origin" type="hidden" value="@origin">
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	}
+
+}

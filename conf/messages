@@ -79,12 +79,14 @@ navbar.link.text.logout=Déconnecter
 navbar.link.text.preset.collector.sav=Nouvelle facture Collector Square SAV
 navbar.link.text.preset.collector.avv=Nouvelle facture Collector Square AVV
 navbar.link.text.preset.hometime=Nouvelle facture Hometime
+navbar.link.text.preset.miller=Nouvelle facture Miller
 navbar.link.text.empty=Nouvelle facture vide
 navbar.link.text.invoices=Lister les factures
 
 link.text.preset.collector.sav=Collector Square SAV
 link.text.preset.collector.avv=Collector Square AVV
 link.text.preset.hometime=Hometime
+link.text.preset.miller=Nouvelle facture Miller
 
 admin.page.text.display.range=Afficher '  
 admin.page.text.display.range.to= à '
@@ -95,3 +97,15 @@ admin.action.label.add.new.default=Ajouter
 admin.page.text.display.previous=&larr; Précédent
 admin.page.text.display.previuous=&larr; Précédent
 admin.page.text.display.next=Suivant &rarr;
+
+
+flash.success=
+flash.warning=
+flash.error=
+
+admin.user.form.login.label.name=Login
+admin.user.form.login.placeholder.name=
+admin.user.form.password.label.name=Mot de passe
+admin.user.form.password.placeholder.name=
+admin.user.form.name.label.name=Nom
+admin.user.form.name.placeholder.name=

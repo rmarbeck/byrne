@@ -1,0 +1,22 @@
+@(currentPage: com.avaje.ebean.PagedList[models.User], currentSortBy: String, currentOrder: String, currentFilter: String, currentSize: Integer)
+@import tags._
+@import fr.watchnext.utils.tags._
+@import _root_.fr.watchnext.utils.views.PageDisplay
+
+@import java.lang.String; val key="user"
+@import java.lang.String; val controllerName="Users"
+@import java.lang.String; val defaultSorting="name"
+
+
+@layouts.main(key, key+"_page") {
+
+@defining(new PageDisplay(currentPage, defaultSorting, key+".page")) { pageDisplay =>
+	@{ pageDisplay.addTableField("name", "name", "getName", false);
+		pageDisplay.addTableField("login", "login", "getLogin", false);
+		pageDisplay.addTableField("privilegeLevel", "privilege", "getPrivilegeLevel", false)
+	}
+	
+	@fr.watchnext.utils.templates.page_with_default_links_and_action(pageDisplay, controllerName, null, currentSortBy, currentOrder, currentFilter, currentSize, true, null)
+}
+}
+
