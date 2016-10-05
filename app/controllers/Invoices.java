@@ -15,7 +15,6 @@ import play.mvc.Result;
 import play.mvc.Security;
 import utils.InvoiceKey;
 
-@Security.Authenticated(MyAuthenticator.class)
 public class Invoices extends Controller {
 	public static Crud<Invoice, Invoice> crud = Crud.of(
 			Invoice.of(),
