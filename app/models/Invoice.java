@@ -182,7 +182,7 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
     }
     
     private static String defaultOrdering() {
-    	return "len(unique_serial_key) DESC, unique_serial_key DESC";
+    	return "unique_serial_key DESC";
     }
 
     public static PagedList<Invoice> page(int page, int pageSize, String sortBy, String order, String filter) {
