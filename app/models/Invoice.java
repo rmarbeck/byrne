@@ -158,7 +158,7 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
     
     
     public static Optional<Invoice> findLastByKey() {
-    	List<Invoice> invoices = find.orderBy("length(unique_serial_key) DESC").orderBy("unique_serial_key DESC").findList();
+    	List<Invoice> invoices = find.orderBy("length(unique_serial_key) DESC, unique_serial_key DESC").findList();
         if (invoices != null && invoices.size() != 0)
         	return Optional.of(invoices.get(0));
         return Optional.empty();
@@ -182,7 +182,7 @@ public class Invoice extends Model implements CrudReady<Invoice, Invoice> {
     }
     
     private static String defaultOrdering() {
-    	return "length(unique_serial_key) DESC, unique_serial_key DESC";
+    	return "unique_serial_key DESC";
     }
 
     public static PagedList<Invoice> page(int page, int pageSize, String sortBy, String order, String filter) {
