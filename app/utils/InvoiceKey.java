@@ -9,6 +9,7 @@ import models.Invoice;
 
 public class InvoiceKey {
 	private final static String SEPARATOR = "/";
+	private final static int PADDING = 3;
 	private Integer year;
 	private Integer serial;
 	
@@ -24,7 +25,7 @@ public class InvoiceKey {
 	}
 	
 	public String toString() {
-		return year+SEPARATOR+serial;
+		return year+SEPARATOR+paddedSerial();
 	}
 	
 	public static Optional<InvoiceKey> fromString(String value) {
@@ -61,5 +62,13 @@ public class InvoiceKey {
 
 	public static int getSerial(String keyAsString) {
 		return fromString(keyAsString).orElse(new InvoiceKey(java.time.Year.now().getValue(), 0)).serial;
+	}
+	
+	private String paddedSerial() {
+		StringBuilder padder = new StringBuilder();
+		padder.append(serial);
+		while (padder.length() < PADDING)
+			padder.insert(0,"0");
+		return padder.toString();
 	}
 }
